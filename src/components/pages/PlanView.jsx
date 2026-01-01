@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Headers from "../main/Headers";
 import Navs from "../main/Navs";
-import { fetchPlan, planById } from "../../apis/PlanService";
+import {planById } from "../../apis/PlanService";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 const PlanView = () => {
   const [loading, setLoading] = useState(false);
-  const [plan, setPlan] = useState(null);
   const [users, setUsers] = useState([]);
-  const [totalUsers, setTotalUsers] = useState(0);
+
 
   const { id } = useParams();
 
@@ -24,9 +23,9 @@ const PlanView = () => {
     try {
       const response = await planById(id);
       if (response?.data?.status) {
-        setPlan(response.data.plan);
+      
         setUsers(response.data.users);
-        setTotalUsers(response.data.totalUsers);
+       
         toast.success("Plan fetched successfully");
       } else {
         toast.info(response?.data?.message);
