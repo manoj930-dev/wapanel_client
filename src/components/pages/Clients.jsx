@@ -15,10 +15,10 @@ const Clients = () => {
   const [data, setData] = useState([]);
   const [plans, setPlans] = useState("");
   const [modalAdd, setModalAdd] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
 
+  
   const [formData, setFormData] = useState({
     client_name: "",
     client_mobile: "",
@@ -154,8 +154,11 @@ const Clients = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
+  if (loading) return <p>Loading...</p>;
+  
   return (
     <>
+
       <Navs />
       <div className="container-fluid dashboard-layout">
         <div className="row">

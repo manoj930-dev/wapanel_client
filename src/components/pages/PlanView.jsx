@@ -37,7 +37,7 @@ const PlanView = () => {
       setLoading(false);
     }
   };
-
+  if (loading) return <p>Loading...</p>;
   return (
     <>
       <Navs />

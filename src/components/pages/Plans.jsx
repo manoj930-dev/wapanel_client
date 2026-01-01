@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const Plans = () => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
   const [plans, setPlans] = useState("");
   const [modalAdd, setModalAdd] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -111,7 +110,7 @@ const Plans = () => {
     setIsEdit(false);
     setSelectedPlanId(null);
   };
-
+  if (loading) return <p>Loading...</p>;
   return (
     <>
       <Navs />
