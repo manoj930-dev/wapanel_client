@@ -12,6 +12,9 @@ import "./styles/admin-theme.css";
 import Group from "./components/pages/Group";
 import GroupView from "./components/pages/GroupView";
 import MessageTemplate from "./components/pages/MessageTemplate";
+import Whatsapp from "./components/pages/Whatsapp";
+import WhatsappGroup from "./components/pages/WhatsappGroup";
+import ExcelUpload from "./components/pages/ExcelMessage";
 
 
 const App = () => {
@@ -28,6 +31,9 @@ const App = () => {
           <Route path="/groups" element={<Group />} />
           <Route path="/groups/view/:id" element={<GroupView />} />
          <Route path="/message/template" element={<MessageTemplate/>}/>
+         <Route path="/whatsapp" element={<Whatsapp/>}/>
+         <Route path="/excel/upload" element={<ExcelUpload/>}/>
+         <Route path="/whatsap/groups" element={<WhatsappGroup/>}/>
         </Route>
       </Routes>
     </>

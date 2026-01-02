@@ -69,6 +69,30 @@ const SidebarContent = () => {
           Message Template
         </NavLink>
       </li>
+      <li className="nav-item">
+        <NavLink
+          to="/whatsapp"
+          className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+        >
+          Whatsapp
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink
+          to="/whatsap/groups"
+          className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+        >
+          Whatsapp Groups
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink
+          to="/excel/upload"
+          className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+        >
+          Excel Upload
+        </NavLink>
+      </li>
     </ul>
   );
 };
