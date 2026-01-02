@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Headers from '../main/Headers'
-import Navs from '../main/Navs'
+import React, { useEffect, useState } from "react";
+import Headers from "../main/Headers";
+import Navs from "../main/Navs";
 import { toast } from "react-toastify";
-
 
 import {
   addTemplate,
@@ -39,7 +38,7 @@ const MessageTemplate = () => {
       if (res.data.status) {
         setTemplates(res.data.data);
       }
-    } catch {
+    } catch (error) {
       toast.error("Failed to load templates");
     } finally {
       setLoading(false);
@@ -76,7 +75,7 @@ const MessageTemplate = () => {
       });
 
       getTemplates();
-    } catch {
+    } catch (error) {
       toast.error("Action failed");
     }
   };
@@ -84,7 +83,16 @@ const MessageTemplate = () => {
   const handleEdit = (tpl) => {
     setIsEdit(true);
     setCurrentId(tpl._id);
-    setFormData(tpl);
+    setFormData({
+      message_title: tpl.message_title,
+      message_description: tpl.message_description,
+      message_image: tpl.message_image || "",
+      website_link: tpl.website_link || "",
+      call_number: tpl.call_number || "",
+      whatsapp_number: tpl.whatsapp_number || "",
+      whatsapp_message: tpl.whatsapp_message || "",
+      message_status: tpl.message_status || "active",
+    });
     setModal(true);
   };
 
@@ -112,7 +120,7 @@ const MessageTemplate = () => {
               </div>
             </div>
 
-            {/* MESSAGE PREVIEW UI (WhatsApp Style) */}
+            {/* MESSAGE PREVIEW UI */}
             <div className="row">
               {templates.map((tpl) => (
                 <div className="col-md-4 mb-3" key={tpl._id}>
@@ -120,6 +128,7 @@ const MessageTemplate = () => {
                     {tpl.message_image && (
                       <img
                         src={tpl.message_image}
+                        alt="message template"
                         className="card-img-top"
                         style={{ height: 180, objectFit: "cover" }}
                       />
@@ -136,6 +145,7 @@ const MessageTemplate = () => {
                           <a
                             href={tpl.website_link}
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="btn btn-sm btn-primary"
                           >
                             🌐 Website
@@ -154,9 +164,10 @@ const MessageTemplate = () => {
                         {tpl.whatsapp_number && (
                           <a
                             href={`https://wa.me/91${tpl.whatsapp_number}?text=${encodeURIComponent(
-                              tpl.whatsapp_message
+                              tpl.whatsapp_message || ""
                             )}`}
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="btn btn-sm btn-outline-success"
                           >
                             💬 WhatsApp
@@ -175,7 +186,6 @@ const MessageTemplate = () => {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       </div>
@@ -187,13 +197,63 @@ const MessageTemplate = () => {
             <h5>{isEdit ? "Update Template" : "Add Template"}</h5>
 
             <form onSubmit={handleSubmit}>
-              <input className="form-control mb-2" name="message_title" placeholder="Title" value={formData.message_title} onChange={handleChange} />
-              <textarea className="form-control mb-2" name="message_description" placeholder="Message" value={formData.message_description} onChange={handleChange} />
-              <input className="form-control mb-2" name="message_image" placeholder="Image URL" value={formData.message_image} onChange={handleChange} />
-              <input className="form-control mb-2" name="website_link" placeholder="Website Link" value={formData.website_link} onChange={handleChange} />
-              <input className="form-control mb-2" name="call_number" placeholder="Call Number" value={formData.call_number} onChange={handleChange} />
-              <input className="form-control mb-2" name="whatsapp_number" placeholder="WhatsApp Number" value={formData.whatsapp_number} onChange={handleChange} />
-              <textarea className="form-control mb-2" name="whatsapp_message" placeholder="WhatsApp Message" value={formData.whatsapp_message} onChange={handleChange} />
+              <input
+                className="form-control mb-2"
+                name="message_title"
+                placeholder="Title"
+                value={formData.message_title}
+                onChange={handleChange}
+                required
+              />
+
+              <textarea
+                className="form-control mb-2"
+                name="message_description"
+                placeholder="Message"
+                value={formData.message_description}
+                onChange={handleChange}
+                required
+              />
+
+              <input
+                className="form-control mb-2"
+                name="message_image"
+                placeholder="Image URL"
+                value={formData.message_image}
+                onChange={handleChange}
+              />
+
+              <input
+                className="form-control mb-2"
+                name="website_link"
+                placeholder="Website Link"
+                value={formData.website_link}
+                onChange={handleChange}
+              />
+
+              <input
+                className="form-control mb-2"
+                name="call_number"
+                placeholder="Call Number"
+                value={formData.call_number}
+                onChange={handleChange}
+              />
+
+              <input
+                className="form-control mb-2"
+                name="whatsapp_number"
+                placeholder="WhatsApp Number"
+                value={formData.whatsapp_number}
+                onChange={handleChange}
+              />
+
+              <textarea
+                className="form-control mb-2"
+                name="whatsapp_message"
+                placeholder="WhatsApp Message"
+                value={formData.whatsapp_message}
+                onChange={handleChange}
+              />
 
               <button className="btn btn-success w-100">
                 {isEdit ? "Update" : "Save"}
@@ -207,4 +267,3 @@ const MessageTemplate = () => {
 };
 
 export default MessageTemplate;
-
