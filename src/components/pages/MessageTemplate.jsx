@@ -40,7 +40,7 @@ const MessageTemplate = () => {
         setTemplates(res.data.data);
       }
     } catch {
-      {toast.error("Failed to load templates");}
+      toast.error("Failed to load templates");
     } finally {
       setLoading(false);
     }
@@ -89,7 +89,7 @@ const MessageTemplate = () => {
   };
 
   if (loading) return <p>Loading...</p>;
-  
+
   return (
     <>
       <Navs />
