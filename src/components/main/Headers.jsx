@@ -36,7 +36,6 @@ const Headers = () => {
 };
 
 const SidebarContent = () => {
-  const role = localStorage.getItem("adminRole");
   return (
     <ul className="nav flex-column p-3">
       <li className="nav-item">

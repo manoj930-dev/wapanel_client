@@ -88,6 +88,8 @@ const MessageTemplate = () => {
     setModal(true);
   };
 
+  if (loading) return <p>Loading...</p>;
+  
   return (
     <>
       <Navs />
