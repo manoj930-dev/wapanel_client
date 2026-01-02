@@ -11,6 +11,9 @@ import "./styles/admin-theme.css";
 import Plans from "./components/pages/Plans";
 import View from "./components/pages/View";
 import PlanView from "./components/pages/PlanView";
+import Group from "./components/pages/Group";
+import GroupView from "./components/pages/GroupView";
+import MessageTemplate from "./components/pages/MessageTemplate";
 
 
 const App = () => {
@@ -24,10 +27,9 @@ const App = () => {
         {/* 🔐 Protected Route */}
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/clients" element={<Clients />} />
-          <Route path="/plans" element={<Plans />} />
-          <Route path="/view/:id" element={<View />} />
-          <Route path="/plan/view/:id" element={<PlanView />} />
+          <Route path="/groups" element={<Group />} />
+          <Route path="/groups/view/:id" element={<GroupView />} />
+         <Route path="/message/template" element={<MessageTemplate/>}/>
         </Route>
       </Routes>
     </>

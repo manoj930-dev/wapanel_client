@@ -48,26 +48,26 @@ const SidebarContent = () => {
           Dashboard
         </NavLink>
       </li>
-      {role === "superadmin" && (
+     
         <>
           <li className="nav-item">
             <NavLink
-              to="/clients"
+              to="/groups"
               className={({ isActive }) =>
                 `nav-link ${isActive ? "active" : ""}`
               }
             >
-              Users
+              Groups
             </NavLink>
           </li>
         </>
-      )}
+     
       <li className="nav-item">
         <NavLink
-          to="/plans"
+          to="/message/template"
           className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
         >
-          Plans
+          Message Template
         </NavLink>
       </li>
     </ul>

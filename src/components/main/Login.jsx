@@ -9,41 +9,47 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+ const handleLogin = async (e) => {
+  e.preventDefault();
 
-    if (!mobile || !password) {
-      toast.error("Mobile & Password required");
+  if (!mobile || !password) {
+    toast.error("Mobile & Password required");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const payload = {
+      mobile,
+      pin: password,
+    };
+
+    const response = await loginAdmin(payload);
+
+    // ✅ SAFETY CHECK
+    if (!response?.data?.token) {
+      toast.error("Invalid response from server");
       return;
     }
 
-    setLoading(true);
+    toast.success("Login successful 🎉");
 
-    try {
-      const payload = {
-        mobile,
-        password: password,
-      };
+    // ✅ CORRECT DATA
+    localStorage.setItem("clientToken", response.data.token);
+    localStorage.setItem("clientInfo", JSON.stringify(response.data.client));
+    localStorage.setItem("tenant_db", response.data.client.tenant_db);
 
-      const response = await loginAdmin(payload);
+    navigate("/", { replace: true });
 
-      // ✅ SUCCESS
-      toast.success("Login successful 🎉");
-      // localStorage.setItem("adminToken", response.data.token);
-      
-      // example
-      localStorage.setItem("adminToken", response.data.token);
-      localStorage.setItem("adminRole", response.data.admin.role); // 👈 ADD
-      localStorage.setItem("adminInfo", JSON.stringify(response.data.admin)); // optional
-      navigate("/");
-    } catch (error) {
-      // ❌ ERROR
-      const msg = error?.response?.data?.message || "Login failed ❌";
-      toast.error(msg);
-    } finally {
-      setLoading(false);
-    }
-  };
+  } catch (error) {
+    const msg = error?.response?.data?.message || "Login failed ❌";
+    toast.error(msg);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div style={styles.container}>
